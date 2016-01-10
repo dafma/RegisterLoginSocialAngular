@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.1/angular.min.js"></script>
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+          $('#myInput').focus()
+        })
+    </script>
+
+    <!-- reCaptcha -->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+    <div>
+        <div class="signup">
+            {% if request.user.is_authenticated %}
+                <a href="#"> Publica</a>
+            {% else %}
+                <div data-toggle="modal" data-target="#myModal1">
+                    <a title="Login" href="#"><span>Registrate</span></a>
+                </div>
+            {% endif %}
+        </div>
+        <span class="or"> | </span>
+        <div class="login">
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'logout' %}"> Salir</a>
+            {% else %}
+                <div data-toggle="modal" data-target="#myModal">
+                    <a title="Login" href="#"><span>Ingresar</span></a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Ingresa</h4>
+                </div>
+                <div class="modal-body">
+                    <form  role="form" method="post">
+                        {% csrf_token %}
+                        <h5 class="text-center"><strong>Ingresa tus credenciales y accede al sistema web</strong></h5>
+                        <div class="form-group">
+                            {{ login_form.username }}
+                            {{ login_forms.username.errors }}
+                        </div>
+                        <div class="form-group">
+                            {{ login_form.password }}
+                            {{ login_forms.password.errors }}
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-lg btn-block" name="login_form">Ingresar</button>
+                        <hr>
+                        <div>
+                            <h5 class = "text-center"><strong>Ingresa con redes sociales</strong></h5>
+                            {% if user.is_authenticated %}
+                                Bienvenido {{ user.username }}
+                                <a href="/salir">Salir</a>
+                            {% else %}
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary btn-lg btn-block"><i class="fa fa-facebook"></i>  Facebook</a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="{% url 'social:begin' 'twitter' %}" class="btn btn-info btn-lg btn-block"><i class="fa fa-twitter"></i>  Twitter</a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-danger btn-lg btn-block"><i class="fa fa-google-plus"></i>  Google</a>
+                                    </div>
+                                </div>
+                                <hr>
+                            {% endif %}
+                        </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <!-- Fin Login Modal -->
+          <!-- Inicio Registrate -->
+          <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Registrate</h4>
+                  </div>
+                  <div class="modal-body">
+                          <h5 class="text-center"><strong>Registrate y empieza a crear y compartir tus eventos:</strong></h5>
+                          <div ng-app="myapp" class="ng-scope">
+                              <form name="myForm" class="ng-pristine ng-invalid ng-invalid-required" role="form" method="post">
+                                  {% csrf_token %}
+                                  <div >
+                                      <label for="email">E-mail:</label>
+                                      {{ user_register.email }}
+                                      {{ user_register.email.errors }}
+                                      <span ng-show="myForm.email.$error.required &amp;&amp; myForm.email.$dirty" style="display: none;">required</span>
+                                      <span ng-show="!myForm.email.$error.required &amp;&amp; myForm.email.$error.email &amp;&amp; myForm.email.$dirty" style="display: none;">invalid email</span>
+                                  </div>
+                                  <div >
+                                      <label for="username">Nombre de Usuario:</label>
+                                      {{ user_register.username }}
+                                      {{ user_register.username.errors }}
+                                      <span ng-show="myForm.username.$error.required &amp;&amp; myForm.username.$dirty" style="display: none;">required</span>
+                                      <span ng-show="!myForm.username.$error.minLength &amp;&amp; !myForm.username.$error.maxLength &amp;&amp; myForm.username.$error.pattern &amp;&amp; myForm.username.$dirty" style="display: none;">Must start with a letter, and contain letters &amp; numbers only.</span>
+                                      <span ng-show="!myForm.username.$error.required &amp;&amp; (myForm.username.$error.minlength || myForm.username.$error.maxlength) &amp;&amp; myForm.username.$dirty" style="display: none;">Username ust be between 5 and 20 characters.</span>
+                                  </div>
+                                  <div>
+                                      <label for="name">Primer nombre:</label>
+                                      {{ user_register.first_name }}
+                                      {{ user_register.first_name.errors }}
+                                      <span ng-show="myForm.name.$error.required &amp;&amp; myForm.name.$dirty" style="display: none;">required</span>
+                                  </div>
+                                  <div class="form-group ">
+                                      <label for="password_c">Contraseña:</label>
+                                      {{ user_register.password }}
+                                      {{ user_register.password.errors }}
+                                      <span ng-show="myForm.password.$error.required &amp;&amp; myForm.password.$dirty" style="display: none;">required</span>
+                                      <span ng-show="!myForm.password.$error.required &amp;&amp; (myForm.password.$error.minlength || myForm.password.$error.maxlength) &amp;&amp; myForm.password.$dirty" style="display: none;">Passwords must be between 8 and 20 characters.</span>
+                                      <span ng-show="!myForm.password.$error.required &amp;&amp; !myForm.password.$error.minlength &amp;&amp; !myForm.password.$error.maxlength &amp;&amp; myForm.password.$error.pattern &amp;&amp; myForm.password.$dirty" style="display: none;">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</span>
+                                  </div>
+                                  <div>
+                                      <label for="password_c">Confirmar Contraseña</label>
+                                      <input type="password" id="password_c" name="password_c" ng-model="formData.password_c" valid-password-c="" required="" class="form-control ng-pristine ng-invalid ng-invalid-required">
+                                      <span ng-show="myForm.password_c.$error.required &amp;&amp; myForm.password_c.$dirty" style="display: none;">Please confirm your password.</span>
+                                      <span ng-show="!myForm.password_c.$error.required &amp;&amp; myForm.password_c.$error.noMatch &amp;&amp; myForm.password.$dirty" style="display: none;">Passwords do not match.</span>
+                                  </div>
+                                  <button type="submit" class="btn" ng-disabled="!myForm.$valid" disabled="disabled">Submit</button>
+                              </form>
+                          </div>
+                          <div>
+                              <h5 class = "text-center"><strong>Registrate con redes sociales</strong></h5>
+                              {% if user.is_authenticated %}
+                                  Bienvenido {{ user.username }}
+                                  <a href="/salir">Salir</a>
+                              {% else %}
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                          <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary btn-lg btn-block"><i class="fa fa-facebook"></i>  Facebook</a>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <a href="{% url 'social:begin' 'twitter' %}" class="btn btn-info btn-lg btn-block"><i class="fa fa-twitter"></i>  Twitter</a>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-danger btn-lg btn-block"><i class="fa fa-google-plus"></i>  Google</a>
+                                      </div>
+                                  </div>
+                              {% endif %}
+                           </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <!-- Fin Registrate -->
+  <script>
+      var app = angular.module('myapp', ['UserValidation']);
+      angular.module('UserValidation', []).directive('validPasswordC', function () {
+            return {
+                require: 'ngModel',
+                link: function (scope, elm, attrs, ctrl) {
+                    ctrl.$parsers.unshift(function (viewValue, $scope) {
+                        var noMatch = viewValue != scope.myForm.password.$viewValue
+                        ctrl.$setValidity('noMatch', !noMatch)
+                    })
+                }
+            }
+        })
+
+  </script>
+
+</body>
+</html>
