@@ -58,8 +58,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.32042253">
-              <caret line="109" column="175" selection-start-line="109" selection-start-column="175" selection-end-line="109" selection-end-column="188" />
+            <state vertical-scroll-proportion="0.5052817">
+              <caret line="116" column="291" selection-start-line="116" selection-start-column="291" selection-end-line="116" selection-end-column="291" />
               <folding />
             </state>
           </provider>
@@ -531,7 +531,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="47" y="24" width="1633" height="1026" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25613594" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -809,8 +809,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32042253">
-          <caret line="109" column="175" selection-start-line="109" selection-start-column="175" selection-end-line="109" selection-end-column="188" />
+        <state vertical-scroll-proportion="0.5052817">
+          <caret line="116" column="291" selection-start-line="116" selection-start-column="291" selection-end-line="116" selection-end-column="291" />
           <folding />
         </state>
       </provider>

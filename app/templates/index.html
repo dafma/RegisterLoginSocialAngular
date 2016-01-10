@@ -107,15 +107,15 @@
                                       {{ user_register.email }}
                                       {{ user_register.email.errors }}
                                       <span ng-show="myForm.email.$error.required &amp;&amp; myForm.email.$dirty" style="display: none;">required</span>
-                                      <span ng-show="!myForm.email.$error.required &amp;&amp; myForm.email.$error.email &amp;&amp; myForm.email.$dirty" style="display: none;">invalid email</span>
+                                      <span ng-show="!myForm.email.$error.required &amp;&amp; myForm.email.$error.email &amp;&amp; myForm.email.$dirty" style="display: none;">email invalido</span>
                                   </div>
                                   <div >
                                       <label for="username">Nombre de Usuario:</label>
                                       {{ user_register.username }}
                                       {{ user_register.username.errors }}
                                       <span ng-show="myForm.username.$error.required &amp;&amp; myForm.username.$dirty" style="display: none;">required</span>
-                                      <span ng-show="!myForm.username.$error.minLength &amp;&amp; !myForm.username.$error.maxLength &amp;&amp; myForm.username.$error.pattern &amp;&amp; myForm.username.$dirty" style="display: none;">Must start with a letter, and contain letters &amp; numbers only.</span>
-                                      <span ng-show="!myForm.username.$error.required &amp;&amp; (myForm.username.$error.minlength || myForm.username.$error.maxlength) &amp;&amp; myForm.username.$dirty" style="display: none;">Username ust be between 5 and 20 characters.</span>
+                                      <span ng-show="!myForm.username.$error.minLength &amp;&amp; !myForm.username.$error.maxLength &amp;&amp; myForm.username.$error.pattern &amp;&amp; myForm.username.$dirty" style="display: none;">El nombre de usuario debe de contener solo letras y numeros.</span>
+                                      <span ng-show="!myForm.username.$error.required &amp;&amp; (myForm.username.$error.minlength || myForm.username.$error.maxlength) &amp;&amp; myForm.username.$dirty" style="display: none;">el nombre de usuario debe de contener de 5 a 10 caracteres..</span>
                                   </div>
                                   <div>
                                       <label for="name">Primer nombre:</label>
